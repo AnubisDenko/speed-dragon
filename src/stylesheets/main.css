@@ -22,3 +22,9 @@ a {
 .container {
   text-align: center;
 }
+
+.dragon-input{
+  width: 300;
+  height: 40;
+
+}
