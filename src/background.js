@@ -5,7 +5,7 @@
 
 import path from "path";
 import url from "url";
-import { app, Menu } from "electron";
+import { app, Menu, BrowserWindow } from "electron";
 import { devMenuTemplate } from "./menu/dev_menu_template";
 import { editMenuTemplate } from "./menu/edit_menu_template";
 import createWindow from "./helpers/window";
@@ -33,13 +33,16 @@ if (env.name !== "production") {
 app.on("ready", () => {
   setApplicationMenu();
 
-  const mainWindow = createWindow("main", {
-    'width': 300,
-    'height': 40,
-    'frame': false,
-    'resizable': false
-
+  const mainWindow = new BrowserWindow({
+    width: 1000,
+    height: 300,
+    frame: false,
+    resizable: false,
+    transparent: true,
+    titleBarStyle: 'hidden'
   });
+
+  mainWindow.setIgnoreMouseEvents(true);
 
   mainWindow.loadURL(
     url.format({
@@ -49,9 +52,9 @@ app.on("ready", () => {
     })
   );
 
-  if (env.name === "development") {
-    mainWindow.openDevTools();
-  }
+  // if (env.name === "development") {
+  //   mainWindow.openDevTools();
+  // }
 });
 
 app.on("window-all-closed", () => {

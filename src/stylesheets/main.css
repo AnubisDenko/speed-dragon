@@ -24,7 +24,7 @@ a {
 }
 
 .dragon-input{
-  width: 300;
-  height: 40;
-
+  width: 300px;
+  height: 40px;
+  background-color: darkcyan
 }
