@@ -2,10 +2,16 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Electron Boilerplate</title>
+  <title>Speed Dragon</title>
 </head>
 <body>
   <input id="appName" autofocus class="awesomplete dragon-input"/>  
   <script src="app.js"></script>
 </body>
+
+<script>
+  const electron = require('electron');
+  const { ipcRenderer } = electron;
+  console.log("Test");  
+</script>
 </html>
