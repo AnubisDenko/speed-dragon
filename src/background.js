@@ -2,6 +2,7 @@ import path from "path";
 import url from "url";
 import { app, Menu, BrowserWindow, globalShortcut,ipcMain } from "electron";
 import loadConfig from './load-keymap';
+import MyTray from './tray';
 
 var mainWindow;
 // Window setup
@@ -35,6 +36,11 @@ app.on("ready", () => {
     mainWindow.show();
     mainWindow.webContents.send('test','This is a test');
   }
+  
+  const iconName = 'dragon-16x16.png';
+  const iconPath = path.join(__dirname,`../resources/icons/${iconName}`);
+  new MyTray(iconPath, mainWindow);
+
   // const config = loadConfig(mainWindow);   
 });
 

@@ -1,10 +1,12 @@
 import "./stylesheets/main.css";
 // Small helpers you might want to keep
-import "./helpers/external_links.js";
 import './awesomplete';
 import './stylesheets/awesomplete.css';
 
 import { ipcRenderer } from "electron";
+
+ipcRenderer.on('test', (event, text) => { console.log("Received test message:", text)});
+console.log(ipcRenderer);
 
 const osMap = {
   win32: "Windows",
@@ -12,8 +14,7 @@ const osMap = {
   linux: "Linux"
 };
 
-ipcRenderer.on('test', (event, text) => { console.log("Received test message:", text)});
-console.log(ipcRenderer);
+
 
 // ipcRenderer.on('config:load', (event,config)=>{
 //   console.log("Received Event: ", config );
