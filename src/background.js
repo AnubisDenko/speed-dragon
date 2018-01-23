@@ -12,11 +12,11 @@ app.on("ready", () => {
     height: 300,
     frame: false,
     resizable: false,
-    transparent: true,    
-  });  
+    transparent: true,
+  });
   mainWindow.setIgnoreMouseEvents(true);
   mainWindow.hide();
- 
+
   mainWindow.loadURL(
     url.format({
       pathname: path.join(__dirname, "app.html"),
@@ -27,7 +27,7 @@ app.on("ready", () => {
 
   const ret = globalShortcut.register(getKeyboardShortCut(), () => {
     mainWindow.isVisible ? mainWindow.hide() :  mainWindow.show();
-  })
+  });
 
   if(isDev()){
     mainWindow.openDevTools();
@@ -36,17 +36,17 @@ app.on("ready", () => {
     mainWindow.show();
     mainWindow.webContents.send('test','This is a test');
   }
-  
+
   const iconName = 'dragon-16x16.png';
   const iconPath = path.join(__dirname,`../resources/icons/${iconName}`);
   new MyTray(iconPath, mainWindow);
 
-  // const config = loadConfig(mainWindow);   
+  // const config = loadConfig(mainWindow);
 });
 
 app.on('will-quit',() => {
   globalShortcut.unregisterAll();
-})
+});
 
 let getKeyboardShortCut = () => {
   if(process.platform === 'darwin'){
@@ -54,8 +54,8 @@ let getKeyboardShortCut = () => {
   }else{
     return 'Super+R';
   }
-}
+};
 
 let isDev = () => {
   return process.env.NODE_ENV !== 'production';
-}
+};

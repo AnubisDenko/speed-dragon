@@ -6,17 +6,17 @@ class MyTray extends Tray{
         super(iconPath);
         this.mainWindow = mainWindow;
         this.on('click', this.onClick.bind(this));
-        this.setToolTip('Speed Dragon');
+        this.setToolTip('App Launcher');
       }
 
       onClick(event){
         if(this.mainWindow.isVisible()){
           this.mainWindow.hide();
-        } else{          
+        } else{
           this.mainWindow.show();
         }
       }
   }
-  
+
   module.exports = MyTray;
   let isWindows = () => { return process.platform === 'win32'};

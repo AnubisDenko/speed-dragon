@@ -1,6 +1,6 @@
 {
-  "name": "speed-dragon",
-  "productName": "Speed Dragon",
+  "name": "app-launcher",
+  "productName": "App Launcher",
   "description": "Application to setup customizable shortcuts and start via command line. This is based on electron boilerplate (https://github.com/szwacz/electron-boilerplate.git)",
   "version": "0.0.1",
   "private": false,

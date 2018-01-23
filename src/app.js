@@ -21,10 +21,11 @@ const osMap = {
 //   let entries = config['data'];
 //   debugger
 
-//     new Awesomplete(input, {      
+//     new Awesomplete(input, {
 //       list:["Test1","Java","Javascript","Alder"]
 //     });
 // })
 // new Awesomplete(input, {
 //   list:["Test1","Java","Javascript","Alder"]
 // });
+``
