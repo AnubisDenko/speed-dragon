@@ -1,11 +1,13 @@
 import path from "path";
 import url from "url";
-import { app, Menu, BrowserWindow, globalShortcut,ipcMain } from "electron";
+import { app, BrowserWindow, globalShortcut,ipcMain } from "electron";
 import loadConfig from './load-keymap';
 import MyTray from './tray';
 
-var mainWindow;
-// Window setup
+import Constants from './channels';
+
+const mainWindow;
+
 app.on("ready", () => {
   mainWindow = new BrowserWindow({
     width: 1000,
@@ -14,6 +16,7 @@ app.on("ready", () => {
     resizable: false,
     transparent: true,
   });
+
   mainWindow.setIgnoreMouseEvents(true);
   mainWindow.hide();
 
@@ -25,32 +28,42 @@ app.on("ready", () => {
     })
   );
 
-  const ret = globalShortcut.register(getKeyboardShortCut(), () => {
-    mainWindow.isVisible ? mainWindow.hide() :  mainWindow.show();
+  globalShortcut.register(getOpenInputBoxShortcut(), () => {
+    mainWindow.show();
   });
 
-  if(isDev()){
-    mainWindow.openDevTools();
-    mainWindow.setIgnoreMouseEvents(false);
-    console.log("======== DEV ==========");
-    mainWindow.show();
+  globalShortcut.register('Escape', () => {
+    mainWindow.hide();
+  });
 
-    mainWindow.webContents.on('did-finish-load', () => {
-      loadConfig(mainWindow)
-    })
-  }
+  ipcMain.on(Constants.COMMAND_RUN, (event, command) => {
+    console.log("Going to run ", command);
+    mainWindow.hide();
+  });
+
+  mainWindow.webContents.on('did-finish-load', () => {
+    loadConfig(mainWindow)
+  });
+
+  // if(isDev()){
+  //   mainWindow.openDevTools();
+  //   mainWindow.setIgnoreMouseEvents(false);
+  //   console.log("======== DEV ==========");
+  //   mainWindow.show();
+  // }
 
   const iconName = 'dragon-16x16.png';
   const iconPath = path.join(__dirname,`../resources/icons/${iconName}`);
   new MyTray(iconPath, mainWindow);
 
+  app.dock.hide()
 });
 
 app.on('will-quit',() => {
   globalShortcut.unregisterAll();
 });
 
-let getKeyboardShortCut = () => {
+let getOpenInputBoxShortcut = () => {
   if(process.platform === 'darwin'){
     return 'Option+R';
   }else{

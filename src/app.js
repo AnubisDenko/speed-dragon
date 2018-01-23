@@ -1,28 +1,24 @@
 import "./stylesheets/main.css";
-// Small helpers you might want to keep
 import './awesomplete';
 import './stylesheets/awesomplete.css';
 
+import Channels from './channels';
 import { ipcRenderer } from "electron";
 
-ipcRenderer.on('test', (event, text) => { console.log("Received test message:", text)});
-const RETURN_KEY = 13
+const RETURN_KEY = 13;
 
-const osMap = {
-  win32: "Windows",
-  darwin: "macOS",
-  linux: "Linux"
-};
+const input = document.getElementById('appName');
 
-var input = document.getElementById('appName');
+document.addEventListener("visibilitychange", () => {
+  input.focus();
+});
+
 input.onkeyup = (event) => {
-  if(event.keyCode == RETURN_KEY ) {
-    console.log("Would be running the following command:", event);
-    console.log("Command " + event.srcElement.value)
+  if(event.keyCode === RETURN_KEY ) {
+    ipcRenderer.send(Channels.COMMAND_RUN, event.srcElement.value);
+    input.value = '';
   }
-
 };
-
 
 let entries;
 let keys;
@@ -30,12 +26,13 @@ let keys;
 ipcRenderer.on('config:load', (event,config)=>{
   keys = config.data.map(entry => entry.shortcut);
 
-    entries = config.data.map( entry => [entry.shortcut,entry.location + " " + entry.params] );
+    entries = config.data.map( entry => [entry.shortcut, entry.location + " " + entry.params]);
 
-    console.log("Keys: " + keys);
-    console.log("Entries: " + entries);
+    console.log(entries);
 
-    new Awesomplete(input, {
+    const inputBox = new Awesomplete(input, {
       list:entries
     });
+    inputBox.autoFirst = true;
+
 });
