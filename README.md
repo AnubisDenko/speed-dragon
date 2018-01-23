@@ -8,8 +8,8 @@ Configuration file needs to be in User Home Directory and named `config.json`
 
 Make sure you have [Node.js](https://nodejs.org) installed, then type the following commands known to every Node developer...
 ```
-git clone https://github.com/AnubisDenko/speed-dragon
-cd speed-dragon
+git clone https://github.com/AnubisDenko/app-launcher
+cd app-launcher
 yarn install
 yarn start
 ```

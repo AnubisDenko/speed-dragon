@@ -17,7 +17,12 @@
     "directories": {
       "buildResources": "resources"
     },
-    "publish": null
+    "publish": null,
+    "mac": {
+      "extendInfo": {
+        "LSUIElement": 1
+      }
+    }
   },
   "scripts": {
     "postinstall": "electron-builder install-app-deps",

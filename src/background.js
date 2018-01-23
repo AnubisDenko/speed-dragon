@@ -6,7 +6,7 @@ import MyTray from './tray';
 
 import Constants from './channels';
 
-const mainWindow;
+var mainWindow;
 
 app.on("ready", () => {
   mainWindow = new BrowserWindow({
