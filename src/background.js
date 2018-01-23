@@ -36,7 +36,7 @@ app.on("ready", () => {
     mainWindow.show();
 
     mainWindow.webContents.on('did-finish-load', () => {
-      mainWindow.webContents.send('test','This is a test');
+      loadConfig(mainWindow)
     })
   }
 
@@ -44,7 +44,6 @@ app.on("ready", () => {
   const iconPath = path.join(__dirname,`../resources/icons/${iconName}`);
   new MyTray(iconPath, mainWindow);
 
-  // const config = loadConfig(mainWindow);
 });
 
 app.on('will-quit',() => {
