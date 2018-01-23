@@ -34,7 +34,10 @@ app.on("ready", () => {
     mainWindow.setIgnoreMouseEvents(false);
     console.log("======== DEV ==========");
     mainWindow.show();
-    mainWindow.webContents.send('test','This is a test');
+
+    mainWindow.webContents.on('did-finish-load', () => {
+      mainWindow.webContents.send('test','This is a test');
+    })
   }
 
   const iconName = 'dragon-16x16.png';
