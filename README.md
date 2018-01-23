@@ -35,3 +35,7 @@ The config file needs to be located in the home directory and named **config.jso
   }
 ]}
 ```
+
+# Disclaimer
+This app is a quick hack and playground for an Electron app. Its not tested at all so you'll never know if it works or not. 
+Definitely not how you should implement an app but hey.... only got that much time to play around with stuff.
