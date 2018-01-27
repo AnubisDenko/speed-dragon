@@ -4,6 +4,7 @@ const {Tray} = electron;
 class MyTray extends Tray{
     constructor(iconPath, mainWindow){
         super(iconPath);
+        console.log("IconPath:", iconPath);
         this.mainWindow = mainWindow;
         this.on('click', this.onClick.bind(this));
         this.setToolTip('App Launcher');

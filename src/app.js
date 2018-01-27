@@ -1,7 +1,6 @@
 import "./stylesheets/main.css";
 import './awesomplete';
 import './stylesheets/awesomplete.css';
-
 import Channels from './channels';
 import { ipcRenderer } from "electron";
 

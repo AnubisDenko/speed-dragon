@@ -6,7 +6,9 @@ import MyTray from './tray';
 
 import Constants from './channels';
 
+const child = require('child_process').execFile;
 var mainWindow;
+var trayIcon;
 
 app.on("ready", () => {
   mainWindow = new BrowserWindow({
@@ -39,22 +41,23 @@ app.on("ready", () => {
   ipcMain.on(Constants.COMMAND_RUN, (event, command) => {
     console.log("Going to run ", command);
     mainWindow.hide();
+    runCommand(command);
   });
 
   mainWindow.webContents.on('did-finish-load', () => {
     loadConfig(mainWindow)
   });
 
-  // if(isDev()){
-  //   mainWindow.openDevTools();
-  //   mainWindow.setIgnoreMouseEvents(false);
-  //   console.log("======== DEV ==========");
-  //   mainWindow.show();
-  // }
+  if(isDev()){
+    mainWindow.openDevTools();
+    mainWindow.setIgnoreMouseEvents(false);
+    console.log("======== DEV ==========");
+    mainWindow.show();
+  }
 
   const iconName = 'dragon-16x16.png';
   const iconPath = path.join(__dirname,`../resources/icons/${iconName}`);
-  new MyTray(iconPath, mainWindow);
+  trayIcon = new MyTray(iconPath, mainWindow);
 
   app.dock.hide()
 });
@@ -73,4 +76,15 @@ let getOpenInputBoxShortcut = () => {
 
 let isDev = () => {
   return process.env.NODE_ENV !== 'production';
+};
+
+let runCommand = (commandPath) => {
+  child(commandPath, (err,data) => {
+    if(err){
+      console.error(err);
+      return;
+    }
+
+    console.log(data.toString());
+  })
 };
