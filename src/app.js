@@ -8,8 +8,10 @@ const RETURN_KEY = 13;
 
 const input = document.getElementById('appName');
 
-document.addEventListener("visibilitychange", () => {
+document.addEventListener("visibilitychange", (event) => {
+  console.log("Visibility changed", event);
   input.focus();
+  input.select();
 });
 
 input.onkeyup = (event) => {

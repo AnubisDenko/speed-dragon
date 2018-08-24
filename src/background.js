@@ -9,6 +9,7 @@ import Constants from './channels';
 const child = require('child_process').execFile;
 var mainWindow;
 var trayIcon;
+const ESCAPE = 'Escape';
 
 app.on("ready", () => {
   mainWindow = new BrowserWindow({
@@ -34,12 +35,11 @@ app.on("ready", () => {
     mainWindow.show();
   });
 
-  globalShortcut.register('Escape', () => {
+  globalShortcut.register(ESCAPE, () => {
     mainWindow.hide();
   });
 
   ipcMain.on(Constants.COMMAND_RUN, (event, command) => {
-    console.log("Going to run ", command);
     mainWindow.hide();
     runCommand(command);
   });
